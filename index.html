@@ -261,140 +261,231 @@
     font-weight: 300;
   }
 
-  p.hero-lede {
-    font-size: 19px;
-    line-height: 1.7;
-    max-width: 520px;
+  .hero-lede {
+    font-size: 18px;
+    line-height: 1.6;
     color: var(--navy-mid);
-    margin-bottom: 40px;
+    max-width: 520px;
+    margin-bottom: 48px;
     opacity: 0;
-    animation: fade-up 0.8s 0.6s forwards;
+    animation: fade-up 0.8s 0.8s forwards;
   }
 
-  .hero-actions {
+  .hero-ctas {
     display: flex;
     gap: 16px;
     opacity: 0;
-    animation: fade-up 0.8s 0.75s forwards;
+    animation: fade-up 0.8s 1s forwards;
   }
 
   .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 28px;
+    padding: 18px 32px;
     font-size: 13px;
     font-weight: 500;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     text-decoration: none;
-    border: 1px solid;
-    border-radius: 2px;
-    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
     cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
   }
 
   .btn-primary {
     background: var(--navy-deep);
     color: var(--paper);
-    border-color: var(--navy-deep);
   }
 
-  .btn-primary:hover {
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
     background: var(--gold);
-    border-color: var(--gold);
-    color: var(--navy-deep);
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .btn-secondary {
+  .btn-primary:hover::before { transform: translateY(0); }
+  .btn-primary span { position: relative; z-index: 1; transition: color 0.3s; }
+  .btn-primary:hover span { color: var(--navy-deep); }
+
+  .btn-ghost {
     background: transparent;
-    color: var(--navy);
-    border-color: var(--navy);
+    color: var(--navy-deep);
+    border: 1px solid var(--navy-deep);
   }
 
-  .btn-secondary:hover {
-    background: var(--navy);
+  .btn-ghost:hover {
+    background: var(--navy-deep);
     color: var(--paper);
   }
 
-  .hero-stats {
-    display: flex;
-    align-items: stretch;
-    gap: 0;
+  .arrow {
+    display: inline-block;
+    transition: transform 0.3s;
+  }
+
+  .btn:hover .arrow { transform: translateX(4px); }
+
+  /* Hero data card */
+  .hero-visual {
     opacity: 0;
-    animation: fade-up 0.9s 0.8s forwards;
-    border: 1px solid var(--line-strong);
-    border-radius: 2px;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.5);
+    animation: fade-up 1s 0.6s forwards;
   }
 
-  .stat {
-    padding: 24px 28px;
-    flex: 1;
-    border-right: 1px solid var(--line-strong);
-  }
-
-  .stat:last-child { border-right: none; }
-
-  .stat-label {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 8px;
-  }
-
-  .stat-value {
-    font-family: var(--font-display);
-    font-size: 32px;
-    font-weight: 600;
-    color: var(--navy-deep);
-    letter-spacing: -0.02em;
-  }
-
-  .stat-subtext {
-    font-size: 12px;
-    color: var(--navy-mid);
-    margin-top: 4px;
-  }
-
-  /* About */
-  .about {
-    padding: 120px 48px;
-    background: var(--paper-warm);
+  .data-card {
+    background: var(--navy-deep);
+    color: var(--paper);
+    padding: 40px;
     position: relative;
+    overflow: hidden;
+    box-shadow: 40px 40px 0 -20px var(--gold);
   }
 
-  .container {
-    max-width: 1400px;
-    margin: 0 auto;
+  .data-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--blue-bright) 50%, var(--teal) 100%);
   }
 
-  .section-label {
+  .data-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .data-card-label {
     font-family: var(--font-mono);
     font-size: 10px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .data-card-status {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .status-dot {
+    width: 6px; height: 6px;
+    background: #4ADE80;
+    border-radius: 50%;
+    animation: pulse-green 2s infinite;
+  }
+
+  @keyframes pulse-green {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .big-number {
+    font-family: var(--font-display);
+    font-size: 64px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+    font-variation-settings: "opsz" 144;
+  }
+
+  .big-number-label {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 32px;
+  }
+
+  .data-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .data-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 14px;
+  }
+
+  .data-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .data-row-key {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .data-row-val {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+  }
+
+  .data-row-val .accent { color: var(--gold); }
+
+  /* Sections */
+  section { padding: 140px 48px; position: relative; }
+  .container { max-width: 1400px; margin: 0 auto; }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
     color: var(--teal);
-    margin-bottom: 20px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 40px; height: 1px;
+    background: var(--gold);
   }
 
   h2 {
     font-family: var(--font-display);
-    font-size: clamp(36px, 5vw, 64px);
+    font-size: clamp(40px, 5vw, 64px);
     font-weight: 400;
-    line-height: 1.1;
+    line-height: 1;
     letter-spacing: -0.025em;
     color: var(--navy-deep);
     margin-bottom: 32px;
-    font-variation-settings: "opsz" 120;
+    max-width: 900px;
+    font-variation-settings: "opsz" 144;
   }
 
   h2 em {
     font-style: italic;
     color: var(--blue-bright);
+  }
+
+  /* About */
+  .about {
+    background: var(--paper-warm);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
   }
 
   .about-grid {
@@ -404,324 +495,384 @@
     align-items: start;
   }
 
-  .about-text p {
-    font-size: 18px;
-    line-height: 1.75;
-    color: var(--navy-mid);
-    margin-bottom: 24px;
-  }
-
-  .about-text p:last-child { margin-bottom: 0; }
-
-  .principle-list {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-  }
-
-  .principle {
-    border-left: 2px solid var(--gold);
-    padding-left: 24px;
-  }
-
-  .principle-title {
-    font-family: var(--font-display);
-    font-size: 22px;
-    font-weight: 500;
-    color: var(--navy-deep);
-    margin-bottom: 8px;
-  }
-
-  .principle-desc {
-    font-size: 15px;
+  .about-text {
+    font-size: 17px;
     line-height: 1.7;
     color: var(--navy-mid);
   }
 
-  /* Capabilities */
-  .capabilities {
-    padding: 120px 48px;
-    background: var(--paper);
+  .about-text p + p { margin-top: 20px; }
+
+  .about-text strong {
+    color: var(--navy-deep);
+    font-weight: 600;
   }
 
-  .cap-grid {
+  .about-stats {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
-    margin-top: 60px;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
     background: var(--line-strong);
     border: 1px solid var(--line-strong);
   }
 
-  .cap-item {
+  .stat {
     background: var(--paper);
-    padding: 48px 40px;
-    position: relative;
+    padding: 32px 28px;
     transition: background 0.3s;
   }
 
-  .cap-item:hover { background: var(--blue-pale); }
+  .stat:hover { background: var(--navy-deep); }
+  .stat:hover .stat-val { color: var(--gold); }
+  .stat:hover .stat-label { color: rgba(255, 255, 255, 0.6); }
+  .stat:hover .stat-unit { color: var(--paper); }
 
-  .cap-icon {
-    width: 48px; height: 48px;
-    margin-bottom: 24px;
+  .stat-val {
+    font-family: var(--font-display);
+    font-size: 56px;
+    font-weight: 400;
+    color: var(--navy-deep);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+    transition: color 0.3s;
+    font-variation-settings: "opsz" 144;
   }
 
-  .cap-icon svg {
-    width: 100%; height: 100%;
-    stroke: var(--navy-deep);
-    stroke-width: 1.5;
-    fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+  .stat-unit {
+    font-size: 20px;
+    color: var(--navy-mid);
+    font-family: var(--font-body);
+    font-weight: 500;
+    margin-left: 4px;
+    transition: color 0.3s;
+  }
+
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--navy-mid);
+    transition: color 0.3s;
+  }
+
+  /* Capabilities */
+  .capabilities { background: var(--paper); }
+
+  .capabilities-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-bottom: 80px;
+    align-items: end;
+  }
+
+  .capabilities-header p {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--navy-mid);
+  }
+
+  .cap-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--line-strong);
+    border-left: 1px solid var(--line-strong);
+  }
+
+  .cap-item {
+    padding: 48px 32px;
+    border-right: 1px solid var(--line-strong);
+    border-bottom: 1px solid var(--line-strong);
+    transition: background 0.3s;
+    min-height: 260px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cap-item:hover { background: var(--navy-deep); }
+  .cap-item:hover .cap-title,
+  .cap-item:hover .cap-desc { color: var(--paper); }
+  .cap-item:hover .cap-num { color: var(--gold); }
+
+  .cap-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-bottom: 24px;
+    transition: color 0.3s;
   }
 
   .cap-title {
     font-family: var(--font-display);
-    font-size: 20px;
+    font-size: 26px;
     font-weight: 500;
     color: var(--navy-deep);
-    margin-bottom: 12px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+    transition: color 0.3s;
   }
 
   .cap-desc {
     font-size: 14px;
     line-height: 1.6;
     color: var(--navy-mid);
-  }
-
-  .cap-list {
-    list-style: none;
-    margin-top: 16px;
-    font-size: 13px;
-    color: var(--navy-mid);
-  }
-
-  .cap-list li {
-    padding-left: 18px;
-    position: relative;
-    margin-bottom: 8px;
-  }
-
-  .cap-list li::before {
-    content: '→';
-    position: absolute;
-    left: 0;
-    color: var(--gold);
+    margin-top: auto;
+    transition: color 0.3s;
   }
 
   /* Sectors */
   .sectors {
-    padding: 120px 48px;
-    background: var(--navy-deep);
-    color: var(--paper);
+    background: var(--paper-warm);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
   }
 
-  .sectors .section-label { color: var(--gold-light); }
-  .sectors h2 { color: var(--paper); }
-  .sectors h2 em { color: var(--gold-light); }
-
   .sectors-header {
-    max-width: 800px;
-    margin-bottom: 60px;
+    max-width: 720px;
+    margin-bottom: 80px;
   }
 
   .sectors-header p {
-    font-size: 18px;
+    font-size: 17px;
     line-height: 1.7;
-    color: rgba(250, 250, 247, 0.8);
+    color: var(--navy-mid);
+    margin-top: 24px;
   }
 
   .sector-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line-strong);
   }
 
   .sector-item {
-    padding: 32px 28px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 2px;
-    transition: all 0.3s;
+    padding: 48px 24px;
+    border-right: 1px solid var(--line-strong);
+    border-bottom: 1px solid var(--line-strong);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: background 0.3s;
+    min-height: 220px;
   }
 
-  .sector-item:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: var(--gold);
-  }
+  .sector-item:last-child { border-right: 1px solid var(--line-strong); }
+  .sector-item:hover { background: var(--paper); }
+  .sector-item:hover .sector-icon { color: var(--gold); transform: translateY(-4px); }
 
   .sector-icon {
     width: 40px; height: 40px;
-    margin-bottom: 20px;
+    color: var(--navy);
+    margin-bottom: 24px;
+    transition: color 0.3s, transform 0.3s;
   }
 
   .sector-icon svg {
     width: 100%; height: 100%;
-    stroke: var(--gold);
-    stroke-width: 1.5;
+    stroke: currentColor;
+    stroke-width: 1.2;
     fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
   }
 
   .sector-name {
     font-family: var(--font-display);
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 500;
-    color: var(--paper);
-    margin-bottom: 6px;
+    color: var(--navy-deep);
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+    line-height: 1.2;
   }
 
   .sector-desc {
-    font-size: 13px;
-    color: rgba(250, 250, 247, 0.6);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--navy-mid);
+    letter-spacing: 0.05em;
+    line-height: 1.5;
   }
 
   /* Process */
-  .process {
-    padding: 120px 48px;
-    background: var(--paper-warm);
-  }
+  .process { background: var(--paper); }
 
   .process-header {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 80px;
     margin-bottom: 80px;
+    align-items: end;
   }
 
   .process-header p {
-    font-size: 18px;
-    line-height: 1.75;
+    font-size: 17px;
+    line-height: 1.7;
     color: var(--navy-mid);
   }
 
   .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
     position: relative;
-    padding-left: 80px;
   }
 
   .process-line {
     position: absolute;
-    left: 22px;
-    top: 30px;
-    bottom: 30px;
-    width: 2px;
-    background: linear-gradient(to bottom, var(--gold) 0%, var(--teal) 100%);
-    opacity: 0.3;
+    top: 40px;
+    left: 5%;
+    right: 5%;
+    height: 1px;
+    background: repeating-linear-gradient(90deg, var(--gold) 0 8px, transparent 8px 16px);
+    opacity: 0.5;
+    z-index: 0;
   }
 
   .step {
+    padding-right: 32px;
     position: relative;
-    margin-bottom: 64px;
-    padding-bottom: 64px;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .step:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-    border-bottom: none;
+    z-index: 1;
   }
 
   .step-num {
-    position: absolute;
-    left: -80px;
-    top: 0;
-    width: 48px; height: 48px;
+    width: 80px; height: 80px;
+    border: 1px solid var(--line-strong);
+    background: var(--paper);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--paper);
-    border: 2px solid var(--gold);
-    border-radius: 50%;
-    font-family: var(--font-mono);
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--navy-deep);
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--gold);
+    margin-bottom: 32px;
+    letter-spacing: -0.02em;
+    transition: all 0.3s;
+  }
+
+  .step:hover .step-num {
+    background: var(--navy-deep);
+    color: var(--gold);
+    border-color: var(--navy-deep);
+    transform: translateY(-4px);
   }
 
   .step-title {
     font-family: var(--font-display);
-    font-size: 28px;
+    font-size: 22px;
     font-weight: 500;
     color: var(--navy-deep);
     margin-bottom: 12px;
+    letter-spacing: -0.01em;
   }
 
   .step-desc {
-    font-size: 16px;
-    line-height: 1.7;
+    font-size: 14px;
+    line-height: 1.6;
     color: var(--navy-mid);
-    max-width: 600px;
   }
+
+
 
   /* Contact */
   .contact {
-    padding: 120px 48px 80px;
     background: var(--paper);
+    padding-top: 140px;
+    padding-bottom: 60px;
+    position: relative;
+    overflow: hidden;
   }
 
   .contact h2 {
-    max-width: 700px;
-    margin-bottom: 60px;
+    font-size: clamp(56px, 8vw, 120px);
+    margin-bottom: 48px;
+    font-weight: 300;
+  }
+
+  .contact h2 em {
+    color: var(--gold);
+    font-weight: 400;
   }
 
   .contact-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.5fr 1fr;
     gap: 80px;
-    margin-bottom: 100px;
+    margin-bottom: 120px;
+    align-items: start;
   }
 
   .contact-lede {
-    font-size: 18px;
-    line-height: 1.75;
+    font-size: 20px;
+    line-height: 1.5;
     color: var(--navy-mid);
+    max-width: 600px;
   }
 
   .contact-channels {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 32px;
+  }
+
+  .contact-channel {
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line-strong);
   }
 
   .contact-channel-label {
     font-family: var(--font-mono);
     font-size: 10px;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--teal);
     margin-bottom: 8px;
   }
 
   .contact-channel-email {
-    font-size: 20px;
-    font-weight: 500;
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 400;
     color: var(--navy-deep);
     text-decoration: none;
-    border-bottom: 2px solid var(--gold);
-    display: inline-block;
     transition: color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
   }
 
-  .contact-channel-email:hover { color: var(--blue-bright); }
+  .contact-channel-email:hover { color: var(--gold); }
+
+  .contact-channel-email::after {
+    content: '↗';
+    font-size: 18px;
+    transition: transform 0.3s;
+  }
+
+  .contact-channel-email:hover::after { transform: translate(2px, -2px); }
 
   .contact-address {
     font-size: 15px;
-    line-height: 1.8;
-    color: var(--navy-mid);
+    line-height: 1.6;
+    color: var(--navy);
   }
 
   .footer-grid {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
-    gap: 80px;
-    padding: 60px 0;
+    gap: 60px;
+    padding-top: 40px;
     border-top: 1px solid var(--line-strong);
-    border-bottom: 1px solid var(--line-strong);
-    margin-bottom: 32px;
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 
   .footer-brand-logo {
@@ -729,98 +880,100 @@
     align-items: center;
     gap: 12px;
     font-family: var(--font-display);
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 24px;
+    font-weight: 500;
     color: var(--navy-deep);
-    margin-bottom: 16px;
   }
 
   .footer-brand p {
-    font-size: 14px;
-    line-height: 1.7;
+    font-size: 13px;
     color: var(--navy-mid);
-    max-width: 420px;
-    margin-bottom: 16px;
+    max-width: 320px;
+    line-height: 1.6;
   }
 
   .footer-col h5 {
     font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.15em;
+    font-size: 10px;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--teal);
-    margin-bottom: 16px;
+    margin-bottom: 20px;
+    font-weight: 500;
   }
 
   .footer-col ul {
     list-style: none;
-  }
-
-  .footer-col li {
-    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .footer-col a {
-    color: var(--navy-mid);
-    text-decoration: none;
     font-size: 14px;
+    color: var(--navy);
+    text-decoration: none;
     transition: color 0.2s;
   }
 
-  .footer-col a:hover { color: var(--blue-bright); }
+  .footer-col a:hover { color: var(--gold); }
 
   .footer-bottom {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
     display: flex;
     justify-content: space-between;
-    font-size: 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
     color: var(--navy-mid);
   }
 
   /* Disclaimer */
   .disclaimer {
+    background: var(--navy-deep);
     padding: 24px 48px;
-    background: rgba(10, 37, 64, 0.04);
+    text-align: center;
     font-size: 11px;
-    line-height: 1.7;
-    color: var(--navy-mid);
-    border-top: 1px solid var(--line);
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.6;
+    letter-spacing: 0.02em;
   }
 
   .disclaimer strong {
-    color: var(--navy-deep);
+    color: var(--gold);
     font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 10px;
   }
 
-  /* Mobile */
-  @media (max-width: 1024px) {
-    nav { padding: 16px 32px !important; }
-    .nav-links { gap: 24px; }
-
-    .hero { padding: 140px 32px 60px; }
-    .hero-inner { grid-template-columns: 1fr; gap: 60px; }
-    .hero-stats { flex-direction: column; gap: 0; }
-    .stat { border-right: none; border-bottom: 1px solid var(--line-strong); }
-    .stat:last-child { border-bottom: none; }
-
-    .about, .capabilities, .sectors, .process, .contact { padding: 80px 32px; }
-    .about-grid, .contact-grid, .process-header { grid-template-columns: 1fr; gap: 40px; }
-    .cap-grid { grid-template-columns: 1fr; }
-    .footer-grid { grid-template-columns: 1fr; gap: 40px; }
-    .footer-bottom { flex-direction: column; gap: 8px; }
-
-    .process-steps { padding-left: 60px; }
-    .step-num { left: -60px; width: 40px; height: 40px; font-size: 12px; }
-  }
-
-  @media (max-width: 640px) {
+  /* Responsive */
+  @media (max-width: 960px) {
+    nav { padding: 16px 24px; }
     .nav-links { display: none; }
-    .hero-actions { flex-direction: column; }
-    .btn { width: 100%; justify-content: center; }
+    .hero { padding: 120px 24px 60px; }
+    .hero-inner { grid-template-columns: 1fr; gap: 60px; }
+    section { padding: 80px 24px; }
+    .about-grid,
+    .contact-grid,
+    .footer-grid,
+    .capabilities-header,
+    .process-header { grid-template-columns: 1fr; gap: 48px; }
+    .cap-grid,
+    .sector-grid { grid-template-columns: 1fr 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; gap: 40px 24px; }
+    .process-line { display: none; }
+    .data-card { box-shadow: 20px 20px 0 -10px var(--gold); }
+    h1 { font-size: 56px; }
+    .big-number { font-size: 48px; }
   }
 </style>
 </head>
 <body>
 
+<!-- Navigation -->
 <nav>
   <div class="nav-brand">
     <svg class="compass" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -833,257 +986,241 @@
         <polygon points="0,22 4,4 0,0" fill="#D4A537"/>
         <polygon points="-22,0 -4,4 0,0" fill="#D4A537"/>
         <polygon points="-22,0 -4,-4 0,0" fill="#1B3A6B"/>
+        <polygon points="15.5,-15.5 3,-3 0,0" fill="#D4A537" opacity="0.8"/>
+        <polygon points="15.5,15.5 3,3 0,0" fill="#1B3A6B" opacity="0.8"/>
+        <polygon points="-15.5,15.5 -3,3 0,0" fill="#D4A537" opacity="0.8"/>
+        <polygon points="-15.5,-15.5 -3,-3 0,0" fill="#1B3A6B" opacity="0.8"/>
         <circle r="2" fill="#D4A537"/>
       </g>
     </svg>
-    IIRand Capital
+    <span>IIRand Capital</span>
   </div>
   <div class="nav-links">
     <a href="#about">About</a>
     <a href="#capabilities">Capabilities</a>
     <a href="#sectors">Sectors</a>
     <a href="#process">Process</a>
-    <a href="#contact" class="nav-cta">Engage the Desk</a>
+    <a href="#contact" class="nav-cta">Engage</a>
   </div>
 </nav>
 
-<section class="hero">
+<!-- Hero -->
+<header class="hero" id="top">
   <div class="hero-grid"></div>
   <div class="hero-corner"></div>
   <div class="hero-corner-br"></div>
+
   <div class="hero-inner">
-    <div>
+    <div class="hero-text">
       <div class="hero-meta">
         <div class="hero-meta-dot"></div>
-        <span>Commercial Asset Finance</span>
+        <span>Sandton · Johannesburg · Est. 2016</span>
       </div>
+
       <h1>
-        <span class="line"><span>Capital for</span></span>
-        <span class="line"><span><em>asset-heavy</em></span></span>
-        <span class="line"><span>enterprise.</span></span>
+        <span class="line"><span>Strategic</span></span>
+        <span class="line"><span>Relationships, <em>Capital</em></span></span>
+        <span class="line"><span>Partners <span class="ampersand">&amp;</span> Shared Value.</span></span>
       </h1>
+
       <p class="hero-lede">
-        IIRand Capital structures fast, flexible funding for commercial
-        assets — trucks, machinery, equipment, and cross-border trade. We
-        deploy capital where traditional finance hesitates.
+        A specialist commercial asset finance and capital solutions firm —
+        structuring fast, flexible, and commercially intelligent funding for
+        asset-heavy businesses where traditional institutions cannot.
       </p>
-      <div class="hero-actions">
-        <a href="#contact" class="btn btn-primary">Request Engagement</a>
-        <a href="#capabilities" class="btn btn-secondary">Our Capabilities</a>
+
+      <div class="hero-ctas">
+        <a href="#capabilities" class="btn btn-primary">
+          <span>View Capabilities</span>
+          <span class="arrow">→</span>
+        </a>
+        <a href="#contact" class="btn btn-ghost">
+          Engage the Desk
+          <span class="arrow">→</span>
+        </a>
       </div>
     </div>
 
-    <div class="hero-stats">
-      <div class="stat">
-        <div class="stat-label">Mandate Size</div>
-        <div class="stat-value">R2M+</div>
-        <div class="stat-subtext">Minimum ticket</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label">Turnaround</div>
-        <div class="stat-value">7–14d</div>
-        <div class="stat-subtext">Qualified deals</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label">Coverage</div>
-        <div class="stat-value">ZA + SADC</div>
-        <div class="stat-subtext">Primary markets</div>
+    <div class="hero-visual">
+      <div class="data-card">
+        <div class="data-card-header">
+          <div class="data-card-label">Track Record</div>
+          <div class="data-card-status">
+            <span class="status-dot"></span>
+            <span>PRINCIPAL DESK · LIVE</span>
+          </div>
+        </div>
+
+        <div class="big-number">$19B+</div>
+        <div class="big-number-label">Capital structured &amp; partnered to date</div>
+
+        <div class="data-rows">
+          <div class="data-row">
+            <span class="data-row-key">Private Placement</span>
+            <span class="data-row-val">$3<span class="accent">B+</span></span>
+          </div>
+          <div class="data-row">
+            <span class="data-row-key">Partnership Led</span>
+            <span class="data-row-val">$16<span class="accent">B</span></span>
+          </div>
+          <div class="data-row">
+            <span class="data-row-key">Capital Disciplines</span>
+            <span class="data-row-val">04<span class="accent"> core</span></span>
+          </div>
+          <div class="data-row">
+            <span class="data-row-key">Global Engagements</span>
+            <span class="data-row-val">Cannes · Miami</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</section>
+</header>
 
+<!-- About -->
 <section class="about" id="about">
   <div class="container">
-    <div class="section-label">Who We Are</div>
-    <h2>Built for the businesses banks <em>won't touch</em>.</h2>
-
     <div class="about-grid">
-      <div class="about-text">
-        <p>
-          IIRand Capital is a specialist commercial asset finance and capital
-          solutions firm — structured to move fast on complex, high-value
-          transactions that fall outside the risk appetites of traditional
-          lenders.
-        </p>
-        <p>
-          We operate where deal structures are bespoke, where counterparties
-          are sophisticated, and where speed and execution precision determine
-          whether a mandate closes or collapses.
-        </p>
-        <p>
-          Our desk underwrites, structures, and deploys capital for
-          asset-heavy businesses across transport, machinery, infrastructure,
-          and cross-border trade. We are not a bank. We are capital deployed
-          on commercial logic.
-        </p>
+      <div>
+        <div class="section-label">About the Firm</div>
+        <h2>Built for the transactions <em>traditional institutions</em> cannot execute.</h2>
       </div>
 
-      <div class="principle-list">
-        <div class="principle">
-          <div class="principle-title">Speed as Strategy</div>
-          <p class="principle-desc">
-            Qualified deals close in 7–14 days. We prioritise execution
-            velocity because commercial windows don't wait for credit
-            committees.
+      <div>
+        <div class="about-text">
+          <p>
+            <strong>IIRand Capital</strong> is a specialist commercial asset finance and
+            capital solutions firm, founded by Craig Ngema — a lawyer, strategist,
+            and architect of high-value transactions. The firm was established to
+            address a critical gap in the market: the inability of traditional
+            financial institutions to deliver fast, flexible, and commercially
+            intelligent funding and structuring for asset-heavy businesses.
+          </p>
+          <p>
+            Beyond asset finance, IIRand Capital operates as a multi-disciplinary
+            capital platform — spanning <strong>corporate finance advisory, private
+            placements, trade finance, and asset management</strong> — enabling clients to
+            access, structure, and deploy capital across the full transaction
+            lifecycle.
+          </p>
+          <p>
+            Unlike conventional lenders constrained by rigid credit frameworks, we
+            combine legal precision, capital markets expertise, and entrepreneurial
+            execution to deliver tailored solutions across machinery, equipment,
+            transport fleets, infrastructure, and cross-border trade.
           </p>
         </div>
 
-        <div class="principle">
-          <div class="principle-title">Structural Precision</div>
-          <p class="principle-desc">
-            Every transaction is custom-structured. We price risk properly,
-            align incentives clearly, and build contracts that hold under
-            commercial stress.
-          </p>
-        </div>
-
-        <div class="principle">
-          <div class="principle-title">Qualified Counterparties Only</div>
-          <p class="principle-desc">
-            We engage serious operators — companies with real assets, legal
-            capacity, and commercial rationale. Engagement begins with an NDA.
-          </p>
+        <div class="about-stats" style="margin-top: 40px;">
+          <div class="stat">
+            <div class="stat-val">$3<span class="stat-unit">B+</span></div>
+            <div class="stat-label">Assets Placed</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val">$16<span class="stat-unit">B</span></div>
+            <div class="stat-label">Partnership Led</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val">04</div>
+            <div class="stat-label">Capital Disciplines</div>
+          </div>
+          <div class="stat">
+            <div class="stat-val">2016</div>
+            <div class="stat-label">Year Established</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- Capabilities -->
 <section class="capabilities" id="capabilities">
   <div class="container">
-    <div class="section-label">What We Do</div>
-    <h2>Capital deployment <em>across the stack</em>.</h2>
+    <div class="capabilities-header">
+      <div>
+        <div class="section-label">Capabilities</div>
+        <h2>A <em>multi-disciplinary</em> capital platform.</h2>
+      </div>
+      <p>
+        IIRand Capital delivers across the full transaction lifecycle — from
+        advisory and structuring through to placement, deployment, and ongoing
+        management. Every mandate is a bespoke engagement, not a product.
+      </p>
+    </div>
 
     <div class="cap-grid">
 
       <div class="cap-item">
-        <div class="cap-icon">
-          <svg viewBox="0 0 48 48">
-            <rect x="8" y="14" width="32" height="20" rx="1"/>
-            <circle cx="16" cy="24" r="4"/>
-            <circle cx="32" cy="24" r="4"/>
-          </svg>
-        </div>
-        <div class="cap-title">Asset Finance</div>
+        <div class="cap-num">01 / CAF</div>
+        <div class="cap-title">Commercial Asset Finance</div>
         <p class="cap-desc">
-          Capital deployed against hard assets — trucks, machinery, equipment.
-          We structure lease, purchase, and refinance deals for asset-intensive
-          operators.
+          Tailored funding for machinery, equipment, transport fleets, and
+          infrastructure — structured with speed and commercial intelligence.
         </p>
-        <ul class="cap-list">
-          <li>Fleet acquisition & refinance</li>
-          <li>Heavy machinery finance</li>
-          <li>Equipment leasing structures</li>
-        </ul>
       </div>
 
       <div class="cap-item">
-        <div class="cap-icon">
-          <svg viewBox="0 0 48 48">
-            <circle cx="24" cy="24" r="16"/>
-            <path d="M24 8 L24 24 L35 24"/>
-            <circle cx="24" cy="24" r="2"/>
-          </svg>
-        </div>
-        <div class="cap-title">Working Capital Solutions</div>
+        <div class="cap-num">02 / CFA</div>
+        <div class="cap-title">Corporate Finance Advisory</div>
         <p class="cap-desc">
-          Bridge financing, inventory funding, and short-term liquidity for
-          businesses with predictable cash conversion but timing constraints.
+          Strategic advisory for complex transactions — capital raising, M&amp;A,
+          restructurings, and bespoke transaction architecture.
         </p>
-        <ul class="cap-list">
-          <li>Trade finance & inventory funding</li>
-          <li>Invoice discounting structures</li>
-          <li>Bridge capital for operations</li>
-        </ul>
       </div>
 
       <div class="cap-item">
-        <div class="cap-icon">
-          <svg viewBox="0 0 48 48">
-            <path d="M8 20 L24 8 L40 20 L40 40 L8 40 Z"/>
-            <rect x="18" y="28" width="12" height="12"/>
-            <path d="M16 20 L32 20"/>
-          </svg>
-        </div>
-        <div class="cap-title">Infrastructure & Projects</div>
+        <div class="cap-num">03 / PP</div>
+        <div class="cap-title">Private Placements</div>
         <p class="cap-desc">
-          Capital for commercial infrastructure, utilities, and project-based
-          deployments where returns are tied to asset performance and contract
-          tenure.
+          Proven execution in high-value private placement — over $3B in assets
+          placed and monetised for sophisticated counterparties.
         </p>
-        <ul class="cap-list">
-          <li>Utilities & infrastructure assets</li>
-          <li>Built-environment projects</li>
-          <li>Long-duration contract backing</li>
-        </ul>
       </div>
 
       <div class="cap-item">
-        <div class="cap-icon">
-          <svg viewBox="0 0 48 48">
-            <rect x="12" y="12" width="24" height="24" rx="2"/>
-            <path d="M12 20 L36 20"/>
-            <circle cx="20" cy="28" r="2"/>
-            <circle cx="28" cy="28" r="2"/>
-          </svg>
-        </div>
-        <div class="cap-title">Cross-Border Trade Finance</div>
+        <div class="cap-num">04 / TF</div>
+        <div class="cap-title">Trade Finance</div>
         <p class="cap-desc">
-          Structured finance for import/export operations, commodities trade,
-          and SADC cross-border transactions requiring specialised capital and
-          legal frameworks.
+          Cross-border trade facilitation with legal precision — structured for
+          commodity flows, import/export, and bonded-warehouse arrangements.
         </p>
-        <ul class="cap-list">
-          <li>Import/export facilitation</li>
-          <li>Commodities & bulk trade</li>
-          <li>SADC regional financing</li>
-        </ul>
       </div>
 
       <div class="cap-item">
-        <div class="cap-icon">
-          <svg viewBox="0 0 48 48">
-            <path d="M8 24 L20 12 L28 20 L40 8"/>
-            <circle cx="20" cy="12" r="2"/>
-            <circle cx="28" cy="20" r="2"/>
-            <circle cx="40" cy="8" r="2"/>
-            <path d="M8 40 L8 24 M16 40 L16 28 M24 40 L24 32 M32 40 L32 20 M40 40 L40 16"/>
-          </svg>
-        </div>
-        <div class="cap-title">Refinance & Restructure</div>
+        <div class="cap-num">05 / AM</div>
+        <div class="cap-title">Asset Management</div>
         <p class="cap-desc">
-          Exit capital for distressed positions, balance sheet optimisation,
-          and capital restructuring for businesses locked into unfavourable
-          terms.
+          Ongoing stewardship of structured positions — preserving value and
+          yielding returns across the capital lifecycle.
         </p>
-        <ul class="cap-list">
-          <li>Debt refinancing & consolidation</li>
-          <li>Balance sheet restructure</li>
-          <li>Distressed asset recovery</li>
-        </ul>
       </div>
 
       <div class="cap-item">
-        <div class="cap-icon">
-          <svg viewBox="0 0 48 48">
-            <rect x="8" y="16" width="32" height="20" rx="1"/>
-            <path d="M8 22 L40 22"/>
-            <path d="M16 16 L16 10 L20 6 L28 6 L32 10 L32 16"/>
-            <circle cx="24" cy="29" r="3"/>
-          </svg>
-        </div>
-        <div class="cap-title">Bespoke Structures</div>
+        <div class="cap-num">06 / DS</div>
+        <div class="cap-title">Deal Structuring</div>
         <p class="cap-desc">
-          Non-standard deals requiring custom legal architecture, hybrid
-          instruments, or multi-party coordination. We build structures that
-          fit the mandate.
+          Bespoke structuring combining legal frameworks with capital markets
+          expertise — built for the deal, not adapted from a template.
         </p>
-        <ul class="cap-list">
-          <li>Hybrid debt-equity instruments</li>
-          <li>Multi-stakeholder arrangements</li>
-          <li>Off-market transaction design</li>
-        </ul>
+      </div>
+
+      <div class="cap-item">
+        <div class="cap-num">07 / PE</div>
+        <div class="cap-title">Principal Engagement</div>
+        <p class="cap-desc">
+          Where commercially appropriate, we deploy our own balance sheet
+          alongside partners — aligning interests through shared risk.
+        </p>
+      </div>
+
+      <div class="cap-item">
+        <div class="cap-num">08 / CM</div>
+        <div class="cap-title">Capital Markets Access</div>
+        <p class="cap-desc">
+          Direct pathways into institutional, family office, and sovereign
+          capital — informed by global relationships and active deal flow.
+        </p>
       </div>
 
     </div>
@@ -1247,7 +1384,7 @@
       <div class="contact-channels">
         <div class="contact-channel">
           <div class="contact-channel-label">Capital Markets</div>
-          <a href="mailto:capital@iirandcapital.com" class="contact-channel-email">capital@iirandcapital.com</a>
+          <a href="mailto:capital@iirand.com" class="contact-channel-email">capital@iirand.com</a>
         </div>
         <div class="contact-channel">
           <div class="contact-channel-label">Office</div>
@@ -1301,7 +1438,7 @@
         <h5>Engage</h5>
         <ul>
           <li><a href="#contact">Contact the Desk</a></li>
-          <li><a href="mailto:capital@iirandcapital.com">Capital Markets</a></li>
+          <li><a href="mailto:capital@iirand.com">Capital Markets</a></li>
           <li><a href="#contact">Request NDA</a></li>
         </ul>
       </div>
